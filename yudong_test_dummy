@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dummy App for Azure SWA</title>
+</head>
+<body>
+  <h1>Hello from Azure Static Web Apps!</h1>
+  <p>This is a dummy static site, ready for deployment.</p>
+</body>
+</html>
