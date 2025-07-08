@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Redirect Page</title>
+  <script src="https://alcdn.msauth.net/browser/2.39.0/js/msal-browser.min.js"></script>
+  <script>
+    const msalConfig = {
+      auth: {
+        clientId: "YOUR_CLIENT_ID", // 同样替换
+        authority: "https://YOUR_TENANT.b2clogin.com/YOUR_TENANT.onmicrosoft.com/B2C_1_signupsignin",
+        redirectUri: "https://yudongtest.xyz/redirect.html"
+      }
+    };
+
+    const msalInstance = new msal.PublicClientApplication(msalConfig);
+
+    msalInstance.handleRedirectPromise().then(response => {
+      if (response) {
+        const account = response.account;
+        document.getElementById("result").innerText =
+          "✅ 登录成功！欢迎 " + account.username;
+
+        // 可选：登录后跳转回首页
+        // window.location.href = "/index.html";
+      }
+    }).catch(error => {
+      console.error(error);
+      document.getElementById("result").innerText =
+        "❌ 登录失败：" + error;
+    });
+  </script>
+</head>
+<body>
+  <h2>正在处理登录结果...</h2>
+  <div id="result"></div>
+</body>
+</html>
