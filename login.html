@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Login Page</title>
+  <script src="https://alcdn.msauth.net/browser/2.39.0/js/msal-browser.min.js"></script>
+  <script>
+    // ========== 替换成你自己的信息 ==========
+    const msalConfig = {
+      auth: {
+        clientId: "YOUR_CLIENT_ID", // ← 替换为你注册 App 的 Client ID
+        authority: "https://YOUR_TENANT.b2clogin.com/YOUR_TENANT.onmicrosoft.com/B2C_1_signupsignin", // ← 替换为你的 External ID 用户流地址
+        redirectUri: "https://yudongtest.xyz/redirect.html" // ← 登录成功跳转的页面
+      }
+    };
+
+    const loginRequest = {
+      scopes: ["openid", "profile"]
+    };
+
+    const msalInstance = new msal.PublicClientApplication(msalConfig);
+
+    function signIn() {
+      msalInstance.loginRedirect(loginRequest);
+    }
+  </script>
+</head>
+<body>
+  <h1>欢迎来到 Yudong 的测试登录页</h1>
+  <button onclick="signIn()">登录</button>
+</body>
+</html>
