@@ -3,32 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <title>Login Page</title>
+  <!-- 1. 用 jsDelivr CDN 加载 MSAL，确保在任何网络环境都能拿到 -->
+  <script src="https://cdn.jsdelivr.net/npm/@azure/msal-browser/dist/msal-browser.min.js"></script>
 </head>
 <body>
   <h1>欢迎来到 Yudong 的测试登录页</h1>
   <button onclick="signIn()">登录</button>
 
-  <!-- 加载 MSAL 脚本 -->
-  <script src="https://alcdn.msauth.net/browser/latest/js/msal-browser.min.js"></script>
-
-
-  <!-- 放在最后，确保 DOM 和脚本已加载 -->
+  <!-- 2. 放在页面底部，DOM 和脚本都准备好了才运行 -->
   <script>
+    // —— 3. 这些值全都改成你自己的 —— 
     const msalConfig = {
       auth: {
-        clientId: "e09d83a6-6eb7-4349-9d7b-2c8fb5a0ca52",
-        authority: "https://exidtestyudong.ciamlogin.com/exidtestyudong.onmicrosoft.com/userflow_yudong",
-        redirectUri: "https://yudongtest.xyz/redirect.html"
+        clientId: "e09d83a6-6eb7-4349-9d7b-2c8fb5a0ca52",  // 你的 App (client) ID
+        authority: "https://exidtestyudong.ciamlogin.com/exidtestyudong.onmicrosoft.com/userflow_yudong",  // 你的用户流完整名称
+        redirectUri: "https://yudongtest.xyz/redirect.html"  // 你在 Azure 填的 Redirect URI
       }
     };
 
-    const loginRequest = {
-      scopes: ["openid", "profile"]
-    };
+    const loginRequest = { scopes: ["openid","profile"] };
 
+    // —— 4. 初始化必须在脚本里最前面 —— 
     const msalInstance = new msal.PublicClientApplication(msalConfig);
 
+    // —— 5. 登录函数也写在这里 —— 
     function signIn() {
+      console.log("触发登录");               //（可选：调试用，看 Console 是否输出）
       msalInstance.loginRedirect(loginRequest);
     }
   </script>
