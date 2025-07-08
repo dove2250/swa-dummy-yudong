@@ -8,11 +8,13 @@
     // ========== 替换成你自己的信息 ==========
     const msalConfig = {
       auth: {
-        clientId: "YOUR_CLIENT_ID", // ← 替换为你注册 App 的 Client ID
-        authority: "https://YOUR_TENANT.b2clogin.com/YOUR_TENANT.onmicrosoft.com/B2C_1_signupsignin", // ← 替换为你的 External ID 用户流地址
+        clientId: "e09d83a6-6eb7-4349-9d7b-2c8fb5a0ca52", // ← 替换为你注册 App 的 Client ID
+        authority: "https://exidtestyudong.ciamlogin.com/exidtestyudong.onmicrosoft.com/userflow_yudong", // ← 替换为你的 External ID 用户流地址
         redirectUri: "https://yudongtest.xyz/redirect.html" // ← 登录成功跳转的页面
       }
     };
+
+    
 
     const loginRequest = {
       scopes: ["openid", "profile"]
