@@ -1,38 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8" />
-  <title>Redirect Page</title>
-  <script src="https://alcdn.msauth.net/browser/2.39.0/js/msal-browser.min.js"></script>
+  <meta charset="UTF-8">
+  <title>登录处理中...</title>
+  <script src="https://alcdn.msauth.net/browser/2.14.2/js/msal-browser.min.js"></script>
+</head>
+<body>
+  <h2>正在处理登录，请稍候...</h2>
+
   <script>
     const msalConfig = {
       auth: {
-        clientId: "YOUR_CLIENT_ID", // 同样替换
-        authority: "https://YOUR_TENANT.b2clogin.com/YOUR_TENANT.onmicrosoft.com/B2C_1_signupsignin",
-        redirectUri: "https://yudongtest.xyz/redirect.html"
+        clientId: "3de8b2b8-03ac-4a71-a916-d424cd07c84e",  // 替换成你的实际 clientId
+        authority: "https://login.microsoftonline.com/exidtestyudong.onmicrosoft.com",  // 你的租户
+        redirectUri: "https://yudongtest.xyz/redirect.html"  // 必须与 Azure 中配置一致
       }
     };
 
     const msalInstance = new msal.PublicClientApplication(msalConfig);
 
-    msalInstance.handleRedirectPromise().then(response => {
-      if (response) {
-        const account = response.account;
-        document.getElementById("result").innerText =
-          "✅ 登录成功！欢迎 " + account.username;
-
-        // 可选：登录后跳转回首页
-        // window.location.href = "/index.html";
-      }
-    }).catch(error => {
-      console.error(error);
-      document.getElementById("result").innerText =
-        "❌ 登录失败：" + error;
-    });
+    msalInstance.handleRedirectPromise()
+      .then(response => {
+        if (response) {
+          const account = response.account;
+          console.log("登录成功，用户：", account.username);
+          // 👇 自动跳转到 index.html
+          window.location.href = "index.html";
+        } else {
+          // 没有返回登录信息（可能用户已登录）
+          const currentAccounts = msalInstance.getAllAccounts();
+          if (currentAccounts.length > 0) {
+            console.log("用户已登录：", currentAccounts[0].username);
+            window.location.href = "index.html";
+          } else {
+            alert("未检测到登录状态，请重新登录。");
+          }
+        }
+      })
+      .catch(error => {
+        console.error("登录出错：", error);
+        alert("登录失败：" + (error.errorMessage || error.message));
+      });
   </script>
-</head>
-<body>
-  <h2>正在处理登录结果...</h2>
-  <div id="result"></div>
 </body>
 </html>
