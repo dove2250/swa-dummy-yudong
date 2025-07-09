@@ -17,7 +17,8 @@
     const msalConfig = {
       auth: {
         clientId: "e09d83a6-6eb7-4349-9d7b-2c8fb5a0ca52",  // 你的 App (client) ID
-        authority: "https://exidtestyudong.ciamlogin.com/exidtestyudong.onmicrosoft.com/userflow_yudong",  // 你的用户流完整名称
+        authority: "https://exidtestyudong.ciamlogin.com/exidtestyudong.onmicrosoft.com/oauth2/v2.0/authorize?client_id=b5e6f15e-9d6b-4260-81f8-b21f349a5fde&nonce=eiNkneyuWN&redirect_uri=https://yudongtest.xyz/redirect.html&scope=openid&response_type=code&prompt=login&code_challenge_method=S256&code_challenge=JEKk8BuyAJuyqN1RXuGJdT4ipcG_isjgWEW-bcRD7LA",  // 你的用户流完整名称
+        
         knownAuthorities: ["exidtestyudong.ciamlogin.com"], // 告诉MSAL这个authority是受信任的
         redirectUri: "https://yudongtest.xyz/redirect.html"  // 你在 Azure 填的 Redirect URI
       }
