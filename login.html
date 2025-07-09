@@ -1,37 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8" />
-  <title>Login Page</title>
-  <!-- 1. 用 jsDelivr CDN 加载 MSAL，确保在任何网络环境都能拿到 -->
-  <script src="https://alcdn.msauth.net/browser/2.14.2/js/msal-browser.min.js"></script>
-
+  <meta charset="UTF-8">
+  <title>Login with Entra External ID</title>
+  <script src="https://alcdn.msauth.net/browser/2.44.0/js/msal-browser.min.js"></script>
 </head>
 <body>
-  <h1>欢迎来到 Yudong 的测试登录页</h1>
+  <h1>欢迎来到 Yudong 的 External ID 登录页</h1>
   <button onclick="signIn()">登录</button>
 
-  <!-- 2. 放在页面底部，DOM 和脚本都准备好了才运行 -->
   <script>
-    // —— 3. 这些值全都改成你自己的 —— 
+    // 👇👇👇 请替换成你自己的租户和应用 ID 👇👇👇
     const msalConfig = {
       auth: {
-        clientId: "e09d83a6-6eb7-4349-9d7b-2c8fb5a0ca52",  // 你的 App (client) ID
-        authority: "https://exidtestyudong.ciamlogin.com/exidtestyudong.onmicrosoft.com/oauth2/v2.0/authorize?client_id=b5e6f15e-9d6b-4260-81f8-b21f349a5fde&nonce=eiNkneyuWN&redirect_uri=https://yudongtest.xyz/redirect.html&scope=openid&response_type=code&prompt=login&code_challenge_method=S256&code_challenge=JEKk8BuyAJuyqN1RXuGJdT4ipcG_isjgWEW-bcRD7LA",  // 你的用户流完整名称
-        
-        knownAuthorities: ["exidtestyudong.ciamlogin.com"], // 告诉MSAL这个authority是受信任的
-        redirectUri: "https://yudongtest.xyz/redirect.html"  // 你在 Azure 填的 Redirect URI
+        clientId: "e09d83a6-6eb7-4349-9d7b-2c8fb5a0ca52",  // 你的 App 注册中的 Application (client) ID
+        authority: "https://login.microsoftonline.com/exidtestyudong.onmicrosoft.com",  // 你的租户 domain（或 tenant ID）
+        redirectUri: "https://yudongtest.xyz/redirect.html"
       }
     };
 
-    const loginRequest = { scopes: ["openid","profile"] };
-
-    // —— 4. 初始化必须在脚本里最前面 —— 
     const msalInstance = new msal.PublicClientApplication(msalConfig);
 
-    // —— 5. 登录函数也写在这里 —— 
+    const loginRequest = {
+      scopes: ["openid", "profile", "email"]  // Entra External ID 支持这些基本作用域
+    };
+
     function signIn() {
-      console.log("触发登录");               //（可选：调试用，看 Console 是否输出）
       msalInstance.loginRedirect(loginRequest);
     }
   </script>
