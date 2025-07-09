@@ -18,6 +18,7 @@
       auth: {
         clientId: "e09d83a6-6eb7-4349-9d7b-2c8fb5a0ca52",  // 你的 App (client) ID
         authority: "https://exidtestyudong.ciamlogin.com/exidtestyudong.onmicrosoft.com/userflow_yudong",  // 你的用户流完整名称
+        knownAuthorities: ["exidtestyudong.ciamlogin.com"], // 告诉MSAL这个authority是受信任的
         redirectUri: "https://yudongtest.xyz/redirect.html"  // 你在 Azure 填的 Redirect URI
       }
     };
